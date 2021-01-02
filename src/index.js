@@ -10,12 +10,14 @@ const { declare } = require("@babel/helper-plugin-utils");
 
 const REQUIRED_BABEL_VERSION = 7;
 
+const PATTERN_COMMENT = /\s*?\/\/.*/g;
 const PATTERN_WHITESPACE_NON_BREAKABLE_SPACE = /[\s\uFEFF]*\xA0[\s\uFEFF]*/g;
 const PATTERN_WHITESPACE_EXCEPT_SPACE = /[\r\n\t\f\v\uFEFF\xA0]+/g;
 const PATTERN_WHITESPACE = /[\s\uFEFF\xA0]+/g;
 
 const removeWhitespace = (string = "") => string
 	.toString()
+	.replace(PATTERN_COMMENT, "")
 	.replace(PATTERN_WHITESPACE_NON_BREAKABLE_SPACE, "&nbsp;")
 	.replace(PATTERN_WHITESPACE_EXCEPT_SPACE, "")
 	.replace(PATTERN_WHITESPACE, " ");
